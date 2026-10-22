@@ -28,6 +28,28 @@ Tryck mellanslag i fönstret för att börja spela. Musen används inte i
 spelet, så du kan alltid dra fönstret dit du vill (till exempel till en
 annan skärm).
 
+## Spela utan Python
+
+Under **Releases** på GitHub finns färdiga versioner av spelet att ladda ner:
+
+- **Windows**: packa upp `Manhjalten-windows.zip` och starta `Manhjalten.exe`.
+  Om Windows varnar, klicka på *Mer information* → *Kör ändå*.
+- **Mac**: packa upp `Manhjalten-macos-apple.zip` (nyare Mac med M-chip) eller
+  `Manhjalten-macos-intel.zip` (äldre Mac). Första gången: högerklicka på
+  appen och välj *Öppna*.
+- **Linux**: packa upp `Manhjalten-linux.tar.gz` och kör `Manhjalten/Manhjalten`.
+
+Varje gång koden skickas till GitHub byggs alla versioner automatiskt (se
+fliken *Actions*). För att göra en ny release skapar du en tagg, till exempel:
+
+```bash
+git tag v1.0
+git push origin v1.0
+```
+
+Vill du bygga själv kör du `pip install pyinstaller` och sedan `python bygg.py`
+på den dator du vill bygga för. Programmet hamnar i mappen `dist/`.
+
 ## Styrning
 
 | Tangent          | Vad händer                       |
