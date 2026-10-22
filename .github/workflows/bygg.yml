@@ -35,6 +35,20 @@ jobs:
       - name: Installera
         run: pip install -r requirements.txt pyinstaller==6.22.3
 
+      # panda3d:s macOS-hjul har några bibliotek som bara finns för Intel
+      # (Cg och libRocket, som spelet inte använder). PyInstaller vägrar ta med
+      # dem i en arm64-build, så vi tar bort dem innan bygget.
+      - name: Ta bort Intel-bibliotek (Apple Silicon)
+        if: matrix.namn == 'macos-apple'
+        run: |
+          cd "$(python -c 'import panda3d, os; print(os.path.dirname(panda3d.__file__))')"
+          for f in *.dylib *.so; do
+            if ! lipo -archs "$f" | grep -qw arm64; then
+              echo "Tar bort $f ($(lipo -archs "$f"))"
+              rm "$f"
+            fi
+          done
+
       - name: Bygg
         run: python bygg.py
 
